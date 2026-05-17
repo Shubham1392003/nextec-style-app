@@ -1,26 +1,98 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+  --font-heading: var(--font-heading);
+  --font-pixel: var(--font-pixel);
+
+  --color-teal: #4A7A7A;
+  --color-coral: #D87D7D;
+  --color-blue: #6B8B9E;
+  
+  --color-border: #1a1a1a;
+  
+  /* Brutalist utilities */
+  --shadow-brutal: 4px 4px 0px 0px rgba(0,0,0,1);
+  --shadow-brutal-lg: 8px 8px 0px 0px rgba(0,0,0,1);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  --background: #F3ECE7;
+  --foreground: #111111;
+  --border: #111111;
+}
+
+.dark {
+  --background: #111111;
+  --foreground: #F3ECE7;
+  --border: #F3ECE7;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+    outline-color: var(--foreground);
+    box-sizing: border-box;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    cursor: default;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading uppercase tracking-tighter;
+  }
+  
+  /* Lenis smooth scroll */
+  html.lenis {
+    height: auto;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto;
+  }
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+  .lenis.lenis-scrolling iframe {
+    pointer-events: none;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+  .brutal-border {
+    @apply border-2 border-foreground;
+  }
+  .brutal-shadow {
+    box-shadow: 4px 4px 0px 0px var(--foreground);
+    transition: all 0.2s ease;
+  }
+  .brutal-shadow:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px 0px var(--foreground);
+  }
+  .brutal-shadow:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px 0px var(--foreground);
+  }
+  
+  .text-pixel {
+    @apply font-pixel tracking-widest uppercase;
+  }
+
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
 }
